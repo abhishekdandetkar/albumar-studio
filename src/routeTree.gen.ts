@@ -10,11 +10,23 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as PrintIdRouteImport } from './routes/print.$id'
+import { Route as ScanIdRouteImport } from './routes/scan.$id'
 import { Route as StudioIdRouteImport } from './routes/studio.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrintIdRoute = PrintIdRouteImport.update({
+  id: '/print/$id',
+  path: '/print/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ScanIdRoute = ScanIdRouteImport.update({
+  id: '/scan/$id',
+  path: '/scan/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
 const StudioIdRoute = StudioIdRouteImport.update({
@@ -25,27 +37,35 @@ const StudioIdRoute = StudioIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/print/$id': typeof PrintIdRoute
+  '/scan/$id': typeof ScanIdRoute
   '/studio/$id': typeof StudioIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/print/$id': typeof PrintIdRoute
+  '/scan/$id': typeof ScanIdRoute
   '/studio/$id': typeof StudioIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/print/$id': typeof PrintIdRoute
+  '/scan/$id': typeof ScanIdRoute
   '/studio/$id': typeof StudioIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/studio/$id'
+  fullPaths: '/' | '/print/$id' | '/scan/$id' | '/studio/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/studio/$id'
-  id: '__root__' | '/' | '/studio/$id'
+  to: '/' | '/print/$id' | '/scan/$id' | '/studio/$id'
+  id: '__root__' | '/' | '/print/$id' | '/scan/$id' | '/studio/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  PrintIdRoute: typeof PrintIdRoute
+  ScanIdRoute: typeof ScanIdRoute
   StudioIdRoute: typeof StudioIdRoute
 }
 
@@ -56,6 +76,20 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/print/$id': {
+      id: '/print/$id'
+      path: '/print/$id'
+      fullPath: '/print/$id'
+      preLoaderRoute: typeof PrintIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/scan/$id': {
+      id: '/scan/$id'
+      path: '/scan/$id'
+      fullPath: '/scan/$id'
+      preLoaderRoute: typeof ScanIdRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/studio/$id': {
@@ -70,6 +104,8 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  PrintIdRoute: PrintIdRoute,
+  ScanIdRoute: ScanIdRoute,
   StudioIdRoute: StudioIdRoute,
 }
 export const routeTree = rootRouteImport
