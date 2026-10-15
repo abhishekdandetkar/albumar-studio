@@ -37,7 +37,7 @@ export interface Campaign {
   kind: "vinyl" | "album" | "photo";
   targetImage: string;
   aspect: number; // height / width
-  quality?: Quality;
+  quality?: Quality | undefined;
   layers: Layer[];
   isDemo?: boolean;
   createdAt: number;

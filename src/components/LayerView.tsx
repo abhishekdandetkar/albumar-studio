@@ -103,7 +103,7 @@ export function LayerStage({
 }: {
   campaign: Campaign;
   playing: boolean;
-  selected?: string;
+  selected?: string | undefined;
   onSelect?: (id: string) => void;
   onDrag?: (id: string, x: number, y: number) => void;
 }) {
