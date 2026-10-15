@@ -21,7 +21,7 @@ function VideoLayer({ layer, playing }: { layer: Layer; playing: boolean }) {
   useEffect(() => {
     if (!chroma) return;
     let raf = 0;
-    const [r, g, b] = hexToRgb(layer.chroma!.color);
+    const [r, g, b] = hexToRgb(layer.chroma!.color) as [number, number, number];
     const th = layer.chroma!.threshold * 441;
     const draw = () => {
       const el = v.current, cv = c.current;
@@ -34,7 +34,7 @@ function VideoLayer({ layer, playing }: { layer: Layer; playing: boolean }) {
           const img = ctx.getImageData(0, 0, cv.width, cv.height);
           const d = img.data;
           for (let i = 0; i < d.length; i += 4) {
-            const dist = Math.hypot(d[i] - r, d[i + 1] - g, d[i + 2] - b);
+            const dist = Math.hypot(d[i]! - r, d[i + 1]! - g, d[i + 2]! - b);
             if (dist < th) d[i + 3] = Math.max(0, ((dist - th * 0.6) / (th * 0.4)) * 255);
           }
           ctx.putImageData(img, 0, 0);

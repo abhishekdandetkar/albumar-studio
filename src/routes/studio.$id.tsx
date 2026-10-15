@@ -33,7 +33,7 @@ function Studio() {
   const { id } = Route.useParams();
   const [c, setC] = useState<Campaign | null | undefined>(undefined);
   const [sel, setSel] = useState<string>();
-  const saveT = useRef<number>();
+  const saveT = useRef<number | undefined>(undefined);
 
   useEffect(() => {
     getCampaign(id).then((x) => setC(x ?? null));
@@ -212,7 +212,7 @@ const CTA_PRESETS = [
   { label: "Tour Dates", color: "#f5b942", url: "https://example.com/tour" },
 ];
 
-function LayersTab({ c, update, sel, setSel }: { c: Campaign; update: Upd; sel?: string; setSel: (s?: string) => void }) {
+function LayersTab({ c, update, sel, setSel }: { c: Campaign; update: Upd; sel?: string | undefined; setSel: (s?: string) => void }) {
   const layer = c.layers.find((l) => l.id === sel);
   const patch = (lid: string, p: Partial<Layer>) => update((x) => ({ ...x, layers: x.layers.map((l) => (l.id === lid ? { ...l, ...p } : l)) }));
 
@@ -312,7 +312,7 @@ function LayerProps({ layer: l, patch }: { layer: Layer; patch: (p: Partial<Laye
             <>
               <Field label="Key color"><input type="color" value={l.chroma.color} onChange={(e) => patch({ chroma: { ...l.chroma!, color: e.target.value } })} className="h-8 w-full rounded" /></Field>
               <Field label="Threshold" value={l.chroma.threshold.toFixed(2)}>
-                <Slider min={0.05} max={0.9} step={0.01} value={[l.chroma.threshold]} onValueChange={([v]) => patch({ chroma: { ...l.chroma!, threshold: v } })} />
+                <Slider min={0.05} max={0.9} step={0.01} value={[l.chroma.threshold]} onValueChange={([v = 0]) => patch({ chroma: { ...l.chroma!, threshold: v } })} />
               </Field>
             </>
           )}
@@ -320,13 +320,13 @@ function LayerProps({ layer: l, patch }: { layer: Layer; patch: (p: Partial<Laye
       )}
       {l.type !== "audio" && (
         <>
-          <Field label="Scale" value={l.scale.toFixed(2)}><Slider min={0.1} max={3} step={0.01} value={[l.scale]} onValueChange={([v]) => patch({ scale: v })} /></Field>
-          <Field label="Position X" value={l.x.toFixed(2)}><Slider min={-1.5} max={1.5} step={0.01} value={[l.x]} onValueChange={([v]) => patch({ x: v })} /></Field>
-          <Field label="Position Y" value={l.y.toFixed(2)}><Slider min={-1.5} max={1.5} step={0.01} value={[l.y]} onValueChange={([v]) => patch({ y: v })} /></Field>
-          <Field label="Rotation" value={`${l.rotation}°`}><Slider min={-180} max={180} step={1} value={[l.rotation]} onValueChange={([v]) => patch({ rotation: v })} /></Field>
+          <Field label="Scale" value={l.scale.toFixed(2)}><Slider min={0.1} max={3} step={0.01} value={[l.scale]} onValueChange={([v = 0]) => patch({ scale: v })} /></Field>
+          <Field label="Position X" value={l.x.toFixed(2)}><Slider min={-1.5} max={1.5} step={0.01} value={[l.x]} onValueChange={([v = 0]) => patch({ x: v })} /></Field>
+          <Field label="Position Y" value={l.y.toFixed(2)}><Slider min={-1.5} max={1.5} step={0.01} value={[l.y]} onValueChange={([v = 0]) => patch({ y: v })} /></Field>
+          <Field label="Rotation" value={`${l.rotation}°`}><Slider min={-180} max={180} step={1} value={[l.rotation]} onValueChange={([v = 0]) => patch({ rotation: v })} /></Field>
         </>
       )}
-      <Field label="Opacity" value={`${Math.round(l.opacity * 100)}%`}><Slider min={0} max={1} step={0.01} value={[l.opacity]} onValueChange={([v]) => patch({ opacity: v })} /></Field>
+      <Field label="Opacity" value={`${Math.round(l.opacity * 100)}%`}><Slider min={0} max={1} step={0.01} value={[l.opacity]} onValueChange={([v = 0]) => patch({ opacity: v })} /></Field>
     </div>
   );
 }
@@ -348,6 +348,7 @@ function SimTab({ c }: { c: Campaign }) {
         players.current = c.layers.filter((l) => l.type === "audio" && l.visible && l.src).map((l) => createPlayer(l.src!, l.loop));
       players.current.forEach((p) => p.play());
     } else players.current.forEach((p) => p.pause());
+    return undefined;
   }, [state, c.layers]);
 
   const locked = state === "locked";

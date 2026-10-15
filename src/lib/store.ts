@@ -73,7 +73,7 @@ export function newLayer(type: LayerType, extra: Partial<Layer> = {}): Layer {
   const base: Layer = {
     id: uid(),
     type,
-    name: type[0].toUpperCase() + type.slice(1),
+    name: type[0]!.toUpperCase() + type.slice(1),
     x: 0,
     y: 0,
     w: 0.8,

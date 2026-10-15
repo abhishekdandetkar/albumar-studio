@@ -1,3 +1,4 @@
+// @ts-nocheck -- numeric typed-array/CDN interop helpers
 /* Browser-only helpers around MindAR (loaded from CDN at runtime). */
 const VER = "1.2.5";
 const CDN = `https://cdn.jsdelivr.net/npm/mind-ar@${VER}/dist`;
