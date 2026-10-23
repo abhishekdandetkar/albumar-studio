@@ -29,11 +29,12 @@ export const Route = createFileRoute("/api/public/assets/$")({
   server: {
     handlers: {
       GET: async ({ params }) => {
-        const parts = String((params as Record<string, string | undefined>)._splat ?? "")
-          .split("/")
-          .filter(Boolean);
+        const splat = (params as Record<string, string | undefined>)["_splat"] ?? "";
+        const parts = splat.split("/").filter(Boolean);
         if (parts.length !== 3) return new Response(null, { status: 404 });
-        const [owner, campaignId, file] = parts;
+        const owner = parts[0]!;
+        const campaignId = parts[1]!;
+        const file = parts[2]!;
         if (!UUID_RE.test(owner) || !NAME_RE.test(campaignId) || !NAME_RE.test(file) || file.includes(".."))
           return new Response(null, { status: 404 });
 

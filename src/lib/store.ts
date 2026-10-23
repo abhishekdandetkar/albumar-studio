@@ -67,7 +67,7 @@ function rowToCampaign(r: CampaignRow): Campaign {
     id: r.id,
     name: r.name,
     artist: r.artist,
-    kind: r.kind,
+    kind: r.kind as Campaign["kind"],
     targetImage: r.target_image,
     aspect: r.aspect,
     quality: (r.quality as Quality | null) ?? undefined,
@@ -78,7 +78,9 @@ function rowToCampaign(r: CampaignRow): Campaign {
   };
 }
 
-function toRow(c: Campaign, ownerId: string) {
+type CampaignInsert = Database["public"]["Tables"]["campaigns"]["Insert"];
+
+function toRow(c: Campaign, ownerId: string): CampaignInsert {
   return {
     id: c.id,
     owner_id: ownerId,
@@ -87,8 +89,8 @@ function toRow(c: Campaign, ownerId: string) {
     kind: c.kind,
     target_image: c.targetImage,
     aspect: c.aspect,
-    quality: c.quality ?? null,
-    layers: c.layers,
+    quality: (c.quality ?? null) as unknown as CampaignInsert["quality"],
+    layers: c.layers as unknown as CampaignInsert["layers"],
     mind_url: c.mindUrl ?? null,
     created_at: new Date(c.createdAt || Date.now()).toISOString(),
     updated_at: new Date().toISOString(),
