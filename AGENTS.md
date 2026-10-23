@@ -10,6 +10,8 @@
 <!-- LOVABLE:END -->
 
 ## Architecture
-- Campaigns, layers and compiled .mind targets live in browser IndexedDB (src/lib/store.ts) — no backend yet; move to Lovable Cloud for cross-device scanning.
+- User campaigns live in Lovable Cloud (public.campaigns; RLS: public read so any phone can scan, owner-only writes). Cover images, layer media and compiled .mind files go to the private "ar-assets" storage bucket and are served cross-device through the /api/public/assets/* route (the workspace blocks public buckets).
+- Demo campaigns stay device-local in IndexedDB (src/lib/demos.ts seedDemos) — their artwork is bundled, so they work on any phone without the backend.
+- Managing albums requires sign-in (email/password + Google + Sign in with Lovable); studio routes sit under the _authenticated layout. Scan (/scan/$id) and print are public.
 - MindAR compiler and A-Frame scanner load from CDN at runtime (src/lib/mindar.ts) — keeps heavy tfjs/three out of the SSR bundle.
 - Layer coordinates are in target-width units centered on the cover (y up) — shared by the 2D editor/simulator and the A-Frame AR scene.
