@@ -14,7 +14,51 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      campaigns: {
+        Row: {
+          artist: string
+          aspect: number
+          created_at: string
+          id: string
+          kind: string
+          layers: Json
+          mind_url: string | null
+          name: string
+          owner_id: string
+          quality: Json | null
+          target_image: string
+          updated_at: string
+        }
+        Insert: {
+          artist?: string
+          aspect?: number
+          created_at?: string
+          id: string
+          kind?: string
+          layers?: Json
+          mind_url?: string | null
+          name?: string
+          owner_id: string
+          quality?: Json | null
+          target_image: string
+          updated_at?: string
+        }
+        Update: {
+          artist?: string
+          aspect?: number
+          created_at?: string
+          id?: string
+          kind?: string
+          layers?: Json
+          mind_url?: string | null
+          name?: string
+          owner_id?: string
+          quality?: Json | null
+          target_image?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

@@ -16,7 +16,7 @@ import { clearMind, getCampaign, getMind, newLayer, readFile, saveCampaign, save
 import { analyzeImage, compileTarget, loadImage, qualityScore } from "@/lib/mindar";
 import { createPlayer, type Player } from "@/lib/audio";
 
-export const Route = createFileRoute("/studio/$id")({
+export const Route = createFileRoute("/_authenticated/studio/$id")({
   head: () => ({
     meta: [
       { title: "Campaign Studio — Groove AR" },
@@ -424,8 +424,8 @@ function PublishTab({ c }: { c: Campaign }) {
           <Button variant="outline" asChild><Link to="/print/$id" params={{ id: c.id }}><Printer /> Printable flyer</Link></Button>
           <Button variant="ghost" asChild><Link to="/scan/$id" params={{ id: c.id }}><ScanLine /> Test scanner</Link></Button>
         </div>
-        <p className="rounded-lg border border-warning/40 bg-warning/10 p-3 text-xs text-warning">
-          Campaigns are stored in this browser. Demo albums work on any phone; your own uploads open on this device only until cloud publishing is enabled.
+        <p className="rounded-lg border border-success/40 bg-success/10 p-3 text-xs text-success">
+          Saved to your account — the QR code works on any phone, and the compiled target is uploaded automatically.
         </p>
       </div>
     </div>

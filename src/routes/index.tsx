@@ -1,9 +1,11 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { Disc3, Plus, ScanLine, Trash2, Wand2 } from "lucide-react";
+import { Disc3, LogOut, Plus, ScanLine, Trash2, Wand2 } from "lucide-react";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { seedDemos } from "@/lib/demos";
 import { deleteCampaign, listCampaigns, readFile, saveCampaign, uid, type Campaign } from "@/lib/store";
+import { supabase } from "@/integrations/supabase/client";
 import { loadImage } from "@/lib/mindar";
 
 export const Route = createFileRoute("/")({
@@ -20,12 +22,24 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   const [items, setItems] = useState<Campaign[] | null>(null);
+  const [user, setUser] = useState<{ email: string } | null>(null);
   const fileRef = useRef<HTMLInputElement>(null);
   const nav = useNavigate();
 
   const refresh = () => listCampaigns().then(setItems);
+
   useEffect(() => {
     seedDemos().then(refresh);
+    supabase.auth.getSession().then(({ data }) => {
+      setUser(data.session?.user ? { email: data.session.user.email ?? "" } : null);
+      if (data.session) refresh();
+    });
+    const { data: sub } = supabase.auth.onAuthStateChange((event, session) => {
+      if (event !== "SIGNED_IN" && event !== "SIGNED_OUT") return;
+      setUser(session?.user ? { email: session.user.email ?? "" } : null);
+      refresh();
+    });
+    return () => sub.subscription.unsubscribe();
   }, []);
 
   const create = async (f: File) => {
@@ -43,7 +57,16 @@ function Index() {
       updatedAt: Date.now(),
     };
     await saveCampaign(c);
+    toast.success("Album created");
     nav({ to: "/studio/$id", params: { id: c.id } });
+  };
+
+  const pickFile = () => (user ? fileRef.current?.click() : nav({ to: "/auth" }));
+
+  const signOut = async () => {
+    await supabase.auth.signOut();
+    setUser(null);
+    nav({ to: "/auth", replace: true });
   };
 
   return (
@@ -52,9 +75,23 @@ function Index() {
         <div className="flex items-center gap-2 font-display text-lg font-bold">
           <Disc3 className="h-6 w-6 text-primary" /> Groove AR
         </div>
-        <Button onClick={() => fileRef.current?.click()}>
-          <Plus /> New campaign
-        </Button>
+        <div className="flex items-center gap-2">
+          {user ? (
+            <>
+              <span className="hidden text-xs text-muted-foreground sm:block">{user.email}</span>
+              <Button variant="outline" size="sm" onClick={signOut}>
+                <LogOut /> Sign out
+              </Button>
+            </>
+          ) : (
+            <Button size="sm" asChild>
+              <Link to="/auth">Sign in</Link>
+            </Button>
+          )}
+          <Button size="sm" onClick={pickFile}>
+            <Plus /> New campaign
+          </Button>
+        </div>
       </header>
 
       <section className="mx-auto max-w-6xl px-6 pb-16 pt-10">
@@ -65,15 +102,17 @@ function Index() {
           Make every <span className="text-primary">sleeve</span> play when the camera finds it.
         </h1>
         <p className="mt-5 max-w-xl text-muted-foreground">
-          Upload a cover, compile it in your browser, stack video, audio, a spinning vinyl and CTA badges on top — then print the QR.
+          Upload a cover, compile it in your browser, stack video, audio, a spinning vinyl and CTA badges on top — then
+          print the QR. Albums are saved to your account, so the QR works on any phone.
         </p>
-        <div className="mt-8 flex gap-3">
-          <Button size="lg" onClick={() => fileRef.current?.click()}>
+        <div className="mt-8 flex flex-wrap items-center gap-3">
+          <Button size="lg" onClick={pickFile}>
             <Wand2 /> Upload album artwork
           </Button>
           <Button size="lg" variant="outline" asChild>
             <Link to="/studio/$id" params={{ id: "demo-night-drive" }}>Open demo studio</Link>
           </Button>
+          {!user && <p className="text-xs text-muted-foreground">Creating an album needs a quick sign-in — scanning a QR stays open to everyone.</p>}
         </div>
         <input ref={fileRef} type="file" accept="image/*" hidden onChange={(e) => e.target.files?.[0] && create(e.target.files[0])} />
       </section>

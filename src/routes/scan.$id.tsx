@@ -94,8 +94,19 @@ function Scan() {
     try {
       const [, mind] = await Promise.all([
         loadAframe(),
-        (async () => {
-          let m = await getMind(c.id);
+          (async () => {
+          let m: ArrayBuffer | undefined = await getMind(c.id);
+          if (!m && c.mindUrl) {
+            try {
+              const res = await fetch(c.mindUrl);
+              if (res.ok) {
+                m = await res.arrayBuffer();
+                await saveMind(c.id, m, false); // device-local cache only
+              }
+            } catch {
+              /* falls through to on-device compile */
+            }
+          }
           if (!m) {
             m = (await compileTarget(c.targetImage, setProgress)).buffer;
             await saveMind(c.id, m);
@@ -218,8 +229,8 @@ function Scan() {
             )}
             {phase === "missing" && (
               <div className="space-y-3">
-                <h2 className="font-bold">Campaign not found on this device</h2>
-                <p className="text-sm text-muted-foreground">This album was created in another browser. Try one of the demo albums.</p>
+                <h2 className="font-bold">Album not found</h2>
+                <p className="text-sm text-muted-foreground">This link doesn't point to a published album. Try one of the demo albums.</p>
                 <Button asChild className="w-full"><Link to="/scan/$id" params={{ id: "demo-night-drive" }} reloadDocument>Scan the Night Drive demo</Link></Button>
               </div>
             )}
