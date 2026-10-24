@@ -89,7 +89,7 @@ function toRow(c: Campaign, ownerId: string): CampaignInsert {
     kind: c.kind,
     target_image: c.targetImage,
     aspect: c.aspect,
-    quality: (c.quality ?? null) as unknown as CampaignInsert["quality"],
+    quality: (c.quality ?? null) as unknown as CampaignInsert["quality"] & NonNullable<unknown>,
     layers: c.layers as unknown as NonNullable<CampaignInsert["layers"]>,
     mind_url: c.mindUrl ?? null,
     created_at: new Date(c.createdAt || Date.now()).toISOString(),
