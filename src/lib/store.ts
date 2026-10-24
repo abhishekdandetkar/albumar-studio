@@ -213,6 +213,7 @@ export async function saveCampaign(c: Campaign): Promise<SaveResult | null> {
       /* target stays device-local; recompiled per device otherwise */
     }
   }
+  return result;
 }
 
 export async function deleteCampaign(id: string) {
