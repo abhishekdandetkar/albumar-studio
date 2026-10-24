@@ -46,8 +46,20 @@ function Studio() {
   const doSave = useCallback(async (camp: Campaign) => {
     setSaveState("saving");
     try {
-      await saveCampaign(camp);
+      const res = await saveCampaign(camp);
       setSaveState("saved");
+      // Write uploaded asset URLs back so later saves skip re-uploading.
+      if (res)
+        setC((prev) => {
+          if (!prev) return prev;
+          const targetImage = res.targetImage && prev.targetImage === res.targetImage.from ? res.targetImage.to : prev.targetImage;
+          const layers = prev.layers.map((l) => {
+            const s = res.layerSrcs.find((x) => x.id === l.id);
+            return s && l.src === s.from ? { ...l, src: s.to } : l;
+          });
+          if (targetImage === prev.targetImage && layers.every((l, i) => l === prev.layers[i])) return prev;
+          return { ...prev, targetImage, layers };
+        });
     } catch (e) {
       console.error(e);
       setSaveState("error");
