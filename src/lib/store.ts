@@ -172,22 +172,35 @@ export async function getCampaign(id: string): Promise<Campaign | undefined> {
   return rowToCampaign(data);
 }
 
-export async function saveCampaign(c: Campaign) {
+export interface SaveResult {
+  targetImage?: { from: string; to: string };
+  layerSrcs: { id: string; from: string; to: string }[];
+}
+
+export async function saveCampaign(c: Campaign): Promise<SaveResult | null> {
   if (c.isDemo) {
     await set(C(c.id), { ...c, updatedAt: Date.now() });
-    return;
+    return null;
   }
   const ownerId = await sessionUserId();
   if (!ownerId) {
     // Signed out (or offline): keep device-local so nothing is lost.
     await set(C(c.id), { ...c, updatedAt: Date.now() });
-    return;
+    return null;
   }
   const next: Campaign = { ...c, layers: c.layers.map((l) => ({ ...l })) };
-  if (next.targetImage.startsWith("data:"))
+  const result: SaveResult = { layerSrcs: [] };
+  if (next.targetImage.startsWith("data:")) {
+    const from = next.targetImage;
     next.targetImage = await uploadAsset(`${ownerId}/${c.id}/cover${ext(next.targetImage)}`, next.targetImage);
+    result.targetImage = { from, to: next.targetImage };
+  }
   for (const l of next.layers)
-    if (l.src?.startsWith("data:")) l.src = await uploadAsset(`${ownerId}/${c.id}/${l.id}${ext(l.src)}`, l.src);
+    if (l.src?.startsWith("data:")) {
+      const from = l.src;
+      l.src = await uploadAsset(`${ownerId}/${c.id}/${l.id}${ext(l.src)}`, l.src);
+      result.layerSrcs.push({ id: l.id, from, to: l.src });
+    }
 
   const { error } = await supabase.from("campaigns").upsert(toRow(next, ownerId));
   if (error) throw new Error(error.message);
