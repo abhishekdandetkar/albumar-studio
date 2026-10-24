@@ -33,21 +33,50 @@ function Studio() {
   const { id } = Route.useParams();
   const [c, setC] = useState<Campaign | null | undefined>(undefined);
   const [sel, setSel] = useState<string>();
+  const [saveState, setSaveState] = useState<"idle" | "saving" | "saved" | "error">("idle");
   const saveT = useRef<number | undefined>(undefined);
+  const latest = useRef<Campaign | null>(null);
 
   useEffect(() => {
     getCampaign(id).then((x) => setC(x ?? null));
   }, [id]);
 
-  const update = useCallback((fn: (c: Campaign) => Campaign) => {
-    setC((prev) => {
-      if (!prev) return prev;
-      const next = fn(prev);
-      clearTimeout(saveT.current);
-      saveT.current = window.setTimeout(() => saveCampaign(next), 300);
-      return next;
-    });
+  const doSave = useCallback(async (camp: Campaign) => {
+    setSaveState("saving");
+    try {
+      await saveCampaign(camp);
+      setSaveState("saved");
+    } catch (e) {
+      console.error(e);
+      setSaveState("error");
+      toast.error("Couldn't save your changes to the cloud — check your connection, then press retry.");
+    }
   }, []);
+
+  const update = useCallback(
+    (fn: (c: Campaign) => Campaign) => {
+      setC((prev) => {
+        if (!prev) return prev;
+        const next = fn(prev);
+        latest.current = next;
+        clearTimeout(saveT.current);
+        saveT.current = window.setTimeout(() => doSave(next), 400);
+        return next;
+      });
+    },
+    [doSave],
+  );
+
+  // Flush a pending edit when leaving the studio so the last change reaches the cloud.
+  useEffect(
+    () => () => {
+      if (saveT.current) {
+        clearTimeout(saveT.current);
+        if (latest.current) void saveCampaign(latest.current).catch(() => {});
+      }
+    },
+    [],
+  );
 
   if (c === undefined) return <div className="p-10 text-muted-foreground">Loading…</div>;
   if (c === null)
@@ -65,7 +94,14 @@ function Studio() {
         </Button>
         <Input value={c.name} onChange={(e) => update((x) => ({ ...x, name: e.target.value }))} className="h-9 w-48 font-display font-bold" />
         <Input value={c.artist} onChange={(e) => update((x) => ({ ...x, artist: e.target.value }))} className="h-9 w-48" />
-        <div className="ml-auto">
+        <div className="ml-auto flex items-center gap-3">
+          {saveState === "saving" && <span className="text-xs text-muted-foreground">Saving…</span>}
+          {saveState === "saved" && <span className="text-xs font-medium text-success">● Saved to cloud</span>}
+          {saveState === "error" && (
+            <Button size="sm" variant="destructive" onClick={() => { if (latest.current) doSave(latest.current); }}>
+              Save failed — retry
+            </Button>
+          )}
           <Button size="sm" variant="secondary" asChild>
             <Link to="/scan/$id" params={{ id }}><ScanLine /> Open scanner</Link>
           </Button>
