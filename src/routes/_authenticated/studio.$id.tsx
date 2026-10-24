@@ -38,7 +38,9 @@ function Studio() {
   const latest = useRef<Campaign | null>(null);
 
   useEffect(() => {
-    getCampaign(id).then((x) => setC(x ?? null));
+    // Only fill in the campaign if nothing is loaded/edited yet — a slow load
+    // must never overwrite layers the user added while it was in flight.
+    getCampaign(id).then((x) => setC((prev) => (prev === undefined ? x ?? null : prev)));
   }, [id]);
 
   const doSave = useCallback(async (camp: Campaign) => {
