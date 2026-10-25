@@ -341,7 +341,7 @@ function LayerProps({ layer: l, patch }: { layer: Layer; patch: (p: Partial<Laye
         <div className="space-y-2">
           <div className="flex flex-wrap gap-1">
             {CTA_PRESETS.map((p) => (
-              <button key={p.label} onClick={() => patch(p)} className="rounded-full border px-2 py-0.5 text-[11px] hover:bg-secondary">{p.label}</button>
+              <button key={p.label} onClick={() => patch(p)} className="rounded-none border px-2 py-0.5 text-[11px] hover:bg-secondary">{p.label}</button>
             ))}
           </div>
           <Input value={l.label} onChange={(e) => patch({ label: e.target.value })} placeholder="Label" />
@@ -424,7 +424,7 @@ function SimTab({ c }: { c: Campaign }) {
           </div>
         )}
         <div className="absolute inset-x-0 top-6 text-center text-xs font-bold">
-          <span className={`rounded-full px-3 py-1 ${locked ? "bg-success text-accent-foreground" : "bg-secondary"}`}>
+          <span className={`rounded-none px-3 py-1 ${locked ? "bg-success text-accent-foreground" : "bg-secondary"}`}>
             {state === "idle" ? "Camera ready" : state === "scanning" ? "Searching for cover…" : locked ? "● Target locked" : "Target lost"}
           </span>
         </div>
