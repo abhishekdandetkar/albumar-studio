@@ -85,7 +85,7 @@ export function LayerContent({ layer, campaign, playing }: { layer: Layer; campa
       );
     case "cta":
       return (
-        <div className="flex w-full items-center justify-center rounded-full px-2 py-[6%] text-center font-display text-[clamp(8px,2.2cqw,15px)] font-bold leading-none shadow-glow" style={{ background: layer.color, color: "oklch(0.12 0 0)", aspectRatio: "4 / 1" }}>
+        <div className="flex w-full items-center justify-center rounded-none px-2 py-[6%] text-center font-display text-[clamp(8px,2.2cqw,15px)] font-bold leading-none shadow-glow" style={{ background: layer.color, color: "oklch(0.12 0 0)", aspectRatio: "4 / 1" }}>
           {layer.label}
         </div>
       );

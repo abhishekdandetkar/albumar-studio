@@ -95,7 +95,7 @@ function Index() {
       </header>
 
       <section className="mx-auto max-w-6xl px-6 pb-16 pt-10">
-        <p className="mb-4 inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs text-accent">
+        <p className="mb-4 inline-flex items-center gap-2 rounded-none border px-3 py-1 text-xs text-accent">
           <ScanLine className="h-3.5 w-3.5" /> Image-tracked WebAR · no app install
         </p>
         <h1 className="max-w-3xl text-4xl font-black leading-[1.05] md:text-6xl">

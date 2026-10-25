@@ -171,7 +171,7 @@ function Scan() {
 
       {active && (
         <div className="pointer-events-none absolute inset-0 z-10 flex flex-col items-center justify-between p-5">
-          <span className={`rounded-full px-3 py-1 text-xs font-bold ${phase === "found" ? "bg-success text-accent-foreground" : "bg-secondary/90"}`}>
+          <span className={`rounded-none px-3 py-1 text-xs font-bold ${phase === "found" ? "bg-success text-accent-foreground" : "bg-secondary/90"}`}>
             {phase === "found" ? "● Locked on" : "Searching for the cover…"}
           </span>
           {phase === "searching" && c && (
@@ -184,7 +184,7 @@ function Scan() {
             {phase === "searching" && <p className="rounded-lg bg-background/80 p-2 text-center text-xs">Fill the frame with the whole cover. Good light, hold steady, avoid glare.</p>}
             {phase === "found" && players.current.length > 0 && <p className="flex items-center justify-center gap-1 text-xs"><Volume2 className="h-3.5 w-3.5" /> Now playing</p>}
             {phase === "found" && ctas.map((l) => (
-              <a key={l.id} href={l.url} target="_blank" rel="noreferrer" className="rounded-full py-3 text-center font-display text-sm font-bold shadow-glow" style={{ background: l.color, color: "oklch(0.12 0 0)" }}>
+              <a key={l.id} href={l.url} target="_blank" rel="noreferrer" className="rounded-none py-3 text-center font-display text-sm font-bold shadow-glow" style={{ background: l.color, color: "oklch(0.12 0 0)" }}>
                 {l.label}
               </a>
             ))}
