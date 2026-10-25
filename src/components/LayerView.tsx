@@ -78,9 +78,9 @@ export function LayerContent({ layer, campaign, playing }: { layer: Layer; campa
           <img src={campaign.targetImage} alt="" className={`h-full w-full rounded-sm object-cover shadow-glow ${layer.spin && playing ? "animate-sleeve" : ""}`} />
         </div>
       ) : (
-        <div className={`relative aspect-square w-full rounded-none shadow-glow ${layer.spin && playing ? "animate-spin-slow" : ""}`} style={{ background: "repeating-radial-gradient(circle, oklch(0.16 0 0) 0 2px, oklch(0.22 0 0) 2px 4px)" }}>
-          <img src={campaign.targetImage} alt="" className="absolute left-1/2 top-1/2 h-[36%] w-[36%] -translate-x-1/2 -translate-y-1/2 rounded-none object-cover" />
-          <div className="absolute left-1/2 top-1/2 h-[4%] w-[4%] -translate-x-1/2 -translate-y-1/2 rounded-none bg-background" />
+        <div className={`relative aspect-square w-full rounded-full shadow-glow ${layer.spin && playing ? "animate-spin-slow" : ""}`} style={{ background: "repeating-radial-gradient(circle, oklch(0.16 0 0) 0 2px, oklch(0.22 0 0) 2px 4px)" }}>
+          <img src={campaign.targetImage} alt="" className="absolute left-1/2 top-1/2 h-[36%] w-[36%] -translate-x-1/2 -translate-y-1/2 rounded-full object-cover" />
+          <div className="absolute left-1/2 top-1/2 h-[4%] w-[4%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-background" />
         </div>
       );
     case "cta":
