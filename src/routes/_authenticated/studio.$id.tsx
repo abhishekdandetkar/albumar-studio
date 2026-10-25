@@ -404,7 +404,7 @@ function SimTab({ c }: { c: Campaign }) {
   const locked = state === "locked";
   return (
     <div className="mt-4 grid gap-8 lg:grid-cols-[auto_1fr]">
-      <div className="relative mx-auto h-[640px] w-[320px] overflow-hidden rounded-[44px] border-8 border-secondary bg-background shadow-glow">
+      <div className="relative mx-auto h-[640px] w-[320px] overflow-hidden rounded-none border-8 border-secondary bg-background shadow-glow">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,var(--muted),var(--background))]" />
         <div
           className="absolute left-1/2 top-1/2 w-[78%] transition-all duration-[1600ms] ease-out [perspective:900px]"
