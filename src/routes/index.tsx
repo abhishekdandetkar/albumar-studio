@@ -175,7 +175,7 @@ function Index() {
       <section id="features" className="bg-paper text-ink">
         <div className="mx-auto max-w-6xl px-6 py-20 md:py-28">
           <h2 className="font-poppins text-3xl font-extrabold md:text-4xl">Everything an album needs to come alive</h2>
-          <p className="mt-4 max-w-xl text-muted-foreground">
+          <p className="mt-4 max-w-xl text-ink/60">
             A complete studio for image-tracked AR — from raw artwork to a printed QR on the record sleeve.
           </p>
           <div className="mt-12 grid gap-px border border-ink/15 bg-ink/15 sm:grid-cols-2 lg:grid-cols-3">
@@ -214,7 +214,7 @@ function Index() {
               <div key={title} className="bg-paper p-8">
                 <Icon className="h-6 w-6" />
                 <h3 className="font-poppins mt-4 text-base font-bold">{title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{body}</p>
+                <p className="mt-2 text-sm leading-relaxed text-ink/60">{body}</p>
               </div>
             ))}
           </div>
@@ -245,7 +245,7 @@ function Index() {
       <section className="bg-paper text-ink">
         <div className="mx-auto max-w-6xl px-6 py-20 md:py-28">
           <h2 className="font-poppins text-3xl font-extrabold md:text-4xl">Try a demo right now</h2>
-          <p className="mt-4 max-w-xl text-muted-foreground">
+          <p className="mt-4 max-w-xl text-ink/60">
             Two ready-made albums you can open in the studio or scan on your phone — no sign-up needed.
           </p>
           <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -262,7 +262,7 @@ function Index() {
                 <div className="flex items-center justify-between gap-2 p-4">
                   <div className="min-w-0">
                     <h3 className="truncate text-sm font-bold">{c.name}</h3>
-                    <p className="truncate text-xs text-muted-foreground">
+                    <p className="truncate text-xs text-ink/60">
                       {c.artist} · {c.layers.length} layers
                     </p>
                   </div>
@@ -293,7 +293,7 @@ function Index() {
                     <div className="flex items-center justify-between gap-2 p-4">
                       <div className="min-w-0">
                         <h3 className="truncate text-sm font-bold">{c.name}</h3>
-                        <p className="truncate text-xs text-muted-foreground">
+                        <p className="truncate text-xs text-ink/60">
                           {c.artist} · {c.layers.length} layers
                         </p>
                       </div>
