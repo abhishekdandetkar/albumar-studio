@@ -172,7 +172,7 @@ function Index() {
       </section>
 
       {/* ——— Features · white ——— */}
-      <section className="bg-paper text-ink">
+      <section id="features" className="bg-paper text-ink">
         <div className="mx-auto max-w-6xl px-6 py-20 md:py-28">
           <h2 className="font-poppins text-3xl font-extrabold md:text-4xl">Everything an album needs to come alive</h2>
           <p className="mt-4 max-w-xl text-muted-foreground">
@@ -222,7 +222,7 @@ function Index() {
       </section>
 
       {/* ——— How it works · black ——— */}
-      <section className="bg-ink text-paper">
+      <section id="how-it-works" className="bg-ink text-paper">
         <div className="mx-auto max-w-6xl px-6 py-20 md:py-28">
           <h2 className="font-poppins text-3xl font-extrabold md:text-4xl">From artwork to AR in three steps</h2>
           <div className="mt-12 grid gap-10 md:grid-cols-3">
