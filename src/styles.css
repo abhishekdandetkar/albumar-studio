@@ -7,6 +7,9 @@
 @theme inline {
   --font-display: "Rozha One", system-ui, sans-serif;
   --font-sans: "Manrope", system-ui, sans-serif;
+  --font-poppins: "Poppins", system-ui, sans-serif;
+  --color-ink: var(--ink);
+  --color-paper: var(--paper);
   --radius-xs: 0rem;
   --radius-sm: 0rem;
   --radius-md: 0rem;
@@ -54,6 +57,8 @@
 
 :root {
   --radius: 0rem;
+  --ink: oklch(0.04 0 0);
+  --paper: oklch(1 0 0);
   --background: oklch(0.15 0.025 25);
   --foreground: oklch(0.95 0.02 85);
   --card: oklch(0.2 0.03 25);
