@@ -7,6 +7,9 @@
 @theme inline {
   --font-display: "Rozha One", system-ui, sans-serif;
   --font-sans: "Manrope", system-ui, sans-serif;
+  --font-poppins: "Poppins", system-ui, sans-serif;
+  --color-ink: var(--ink);
+  --color-paper: var(--paper);
   --radius-xs: 0rem;
   --radius-sm: 0rem;
   --radius-md: 0rem;
