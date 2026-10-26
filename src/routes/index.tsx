@@ -368,7 +368,7 @@ function Index() {
             <ul className="mt-4 space-y-2 text-sm">
               <li><Link to="/forgot-password" className="text-paper/80 hover:text-paper">Forgot password</Link></li>
               <li><Link to="/auth" className="text-paper/80 hover:text-paper">Create account</Link></li>
-              <li><Link to="/scan/demo-night-drive" className="text-paper/80 hover:text-paper">Open scanner</Link></li>
+              <li><Link to="/scan/$id" params={{ id: "demo-night-drive" }} className="text-paper/80 hover:text-paper">Open scanner</Link></li>
             </ul>
           </div>
           <div>
