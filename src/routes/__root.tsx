@@ -80,7 +80,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Groove AR — WebAR for album covers" },
+      { title: "Flash AR — WebAR for album covers" },
       { name: "description", content: "Turn vinyl sleeves, album covers and photo albums into WebAR experiences." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

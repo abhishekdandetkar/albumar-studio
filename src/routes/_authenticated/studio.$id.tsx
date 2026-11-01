@@ -19,9 +19,9 @@ import { createPlayer, type Player } from "@/lib/audio";
 export const Route = createFileRoute("/_authenticated/studio/$id")({
   head: () => ({
     meta: [
-      { title: "Campaign Studio — Groove AR" },
+      { title: "Campaign Studio — Flash AR" },
       { name: "description", content: "Compile targets, edit AR layers, simulate tracking and publish your album campaign." },
-      { property: "og:title", content: "Campaign Studio — Groove AR" },
+      { property: "og:title", content: "Campaign Studio — Flash AR" },
       { property: "og:description", content: "Edit and test your WebAR album campaign." },
       { name: "robots", content: "noindex" },
     ],

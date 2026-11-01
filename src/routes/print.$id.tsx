@@ -9,9 +9,9 @@ import { getCampaign, type Campaign } from "@/lib/store";
 export const Route = createFileRoute("/print/$id")({
   head: () => ({
     meta: [
-      { title: "Printable campaign flyer — Groove AR" },
+      { title: "Printable campaign flyer — Flash AR" },
       { name: "description", content: "Print a flyer with the album artwork and scan QR code." },
-      { property: "og:title", content: "Printable campaign flyer — Groove AR" },
+      { property: "og:title", content: "Printable campaign flyer — Flash AR" },
       { property: "og:description", content: "Album artwork plus scan-to-play QR code." },
       { name: "robots", content: "noindex" },
     ],

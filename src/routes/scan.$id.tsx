@@ -11,9 +11,9 @@ import { createPlayer, type Player } from "@/lib/audio";
 export const Route = createFileRoute("/scan/$id")({
   head: () => ({
     meta: [
-      { title: "Scan the album — Groove AR" },
+      { title: "Scan the album — Flash AR" },
       { name: "description", content: "Point your camera at the album cover to unlock the AR experience." },
-      { property: "og:title", content: "Scan the album — Groove AR" },
+      { property: "og:title", content: "Scan the album — Flash AR" },
       { property: "og:description", content: "Point your camera at the cover to make it play." },
     ],
   }),

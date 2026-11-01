@@ -11,9 +11,9 @@ import "@lovable.dev/cloud-auth-js/styles.css";
 export const Route = createFileRoute("/auth")({
   head: () => ({
     meta: [
-      { title: "Sign in — Groove AR" },
+      { title: "Sign in — Flash AR" },
       { name: "description", content: "Sign in to build and publish WebAR album campaigns." },
-      { property: "og:title", content: "Sign in — Groove AR" },
+      { property: "og:title", content: "Sign in — Flash AR" },
       { property: "og:description", content: "Sign in to build and publish WebAR album campaigns." },
     ],
   }),
@@ -72,7 +72,7 @@ function AuthPage() {
     <main className="flex min-h-screen items-center justify-center px-6 py-10">
       <div className="w-full max-w-sm">
         <div className="mb-8 flex items-center justify-center gap-2 font-display text-lg font-bold">
-          <Disc3 className="h-6 w-6 text-primary" /> Groove AR
+          <Disc3 className="h-6 w-6 text-primary" /> Flash AR
         </div>
 
         {awaitingConfirm ? (
