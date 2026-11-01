@@ -102,13 +102,13 @@ function Studio() {
 
   return (
     <main className="min-h-screen">
-      <header className="flex flex-wrap items-center gap-3 border-b px-4 py-3">
-        <Button variant="ghost" size="icon" asChild aria-label="Back">
+      <header className="flex flex-wrap items-center gap-2 border-b px-3 py-3 sm:gap-3 sm:px-4">
+        <Button variant="ghost" size="icon" asChild aria-label="Back" className="shrink-0">
           <Link to="/"><ArrowLeft /></Link>
         </Button>
-        <Input value={c.name} onChange={(e) => update((x) => ({ ...x, name: e.target.value }))} className="h-9 w-48 font-display font-bold" />
-        <Input value={c.artist} onChange={(e) => update((x) => ({ ...x, artist: e.target.value }))} className="h-9 w-48" />
-        <div className="ml-auto flex items-center gap-3">
+        <Input value={c.name} onChange={(e) => update((x) => ({ ...x, name: e.target.value }))} className="h-9 min-w-0 flex-1 text-base font-display font-bold sm:w-48 sm:flex-none" />
+        <Input value={c.artist} onChange={(e) => update((x) => ({ ...x, artist: e.target.value }))} className="order-last h-9 w-full min-w-0 sm:order-none sm:w-48" />
+        <div className="ml-auto flex shrink-0 items-center gap-2 sm:gap-3">
           {saveState === "saving" && <span className="text-xs text-muted-foreground">Saving…</span>}
           {saveState === "saved" && <span className="text-xs font-medium text-success">● Saved to cloud</span>}
           {saveState === "error" && (
@@ -122,7 +122,7 @@ function Studio() {
         </div>
       </header>
       <Tabs defaultValue="layers" className="px-4 py-4">
-        <TabsList>
+        <TabsList className="grid w-full grid-cols-4 sm:inline-flex sm:w-auto">
           <TabsTrigger value="target">1 · Target</TabsTrigger>
           <TabsTrigger value="layers">2 · Layers</TabsTrigger>
           <TabsTrigger value="sim">3 · Simulate</TabsTrigger>
@@ -296,7 +296,7 @@ function LayersTab({ c, update, sel, setSel }: { c: Campaign; update: Upd; sel?:
         </ul>
       </aside>
 
-      <div className="flex items-start justify-center rounded-2xl border bg-muted/40 p-6" onPointerDown={() => setSel(undefined)}>
+      <div className="flex items-start justify-center rounded-2xl border bg-muted/40 p-3 sm:p-6" onPointerDown={() => setSel(undefined)}>
         <div className="relative w-full max-w-[520px]" style={{ aspectRatio: `1 / ${c.aspect}` }}>
           <img src={c.targetImage} alt="" className="absolute inset-0 h-full w-full rounded-md object-cover opacity-80" />
           <LayerStage campaign={c} playing selected={sel} onSelect={setSel} onDrag={(lid, x, y) => patch(lid, { x, y })} />
@@ -404,7 +404,7 @@ function SimTab({ c }: { c: Campaign }) {
   const locked = state === "locked";
   return (
     <div className="mt-4 grid gap-8 lg:grid-cols-[auto_1fr]">
-      <div className="relative mx-auto h-[640px] w-[320px] overflow-hidden rounded-none border-8 border-secondary bg-background shadow-glow">
+      <div className="relative mx-auto h-[540px] w-[270px] overflow-hidden rounded-none border-8 border-secondary bg-background shadow-glow sm:h-[640px] sm:w-[320px]">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,var(--muted),var(--background))]" />
         <div
           className="absolute left-1/2 top-1/2 w-[78%] transition-all duration-[1600ms] ease-out [perspective:900px]"

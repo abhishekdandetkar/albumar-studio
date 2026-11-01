@@ -170,7 +170,7 @@ function Scan() {
       <div ref={holder} className="absolute inset-0 [&_a-scene]:!absolute [&_a-scene]:!inset-0 [&_video]:object-cover" />
 
       {active && (
-        <div className="pointer-events-none absolute inset-0 z-10 flex flex-col items-center justify-between p-5">
+        <div className="pointer-events-none absolute inset-0 z-10 flex flex-col items-center justify-between p-5 [padding-bottom:max(1.25rem,env(safe-area-inset-bottom))] [padding-top:max(1.25rem,env(safe-area-inset-top))]">
           <span className={`rounded-none px-3 py-1 text-xs font-bold ${phase === "found" ? "bg-success text-accent-foreground" : "bg-secondary/90"}`}>
             {phase === "found" ? "● Locked on" : "Searching for the cover…"}
           </span>

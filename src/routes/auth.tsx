@@ -94,7 +94,7 @@ function AuthPage() {
                 <button
                   key={m}
                   onClick={() => setMode(m)}
-                  className={`rounded-md py-1.5 text-sm font-medium transition ${mode === m ? "bg-background shadow-sm" : "text-muted-foreground"}`}
+                  className={`rounded-md py-1.5 text-sm font-medium transition ${mode === m ? "bg-foreground text-background shadow-sm" : "text-muted-foreground"}`}
                 >
                   {m === "signin" ? "Sign in" : "Create account"}
                 </button>
