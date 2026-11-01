@@ -9,10 +9,10 @@ import { supabase } from "@/integrations/supabase/client";
 export const Route = createFileRoute("/forgot-password")({
   head: () => ({
     meta: [
-      { title: "Reset your password — Groove AR" },
-      { name: "description", content: "Request a password reset link for your Groove AR account." },
-      { property: "og:title", content: "Reset your password — Groove AR" },
-      { property: "og:description", content: "Request a password reset link for your Groove AR account." },
+      { title: "Reset your password — Flash AR" },
+      { name: "description", content: "Request a password reset link for your Flash AR account." },
+      { property: "og:title", content: "Reset your password — Flash AR" },
+      { property: "og:description", content: "Request a password reset link for your Flash AR account." },
     ],
   }),
   component: ForgotPassword,

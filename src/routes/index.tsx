@@ -25,9 +25,9 @@ import { loadImage } from "@/lib/mindar";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Groove AR — Album cover WebAR studio" },
+      { title: "Flash AR — Album cover WebAR studio" },
       { name: "description", content: "Turn album covers, vinyl sleeves and photo albums into interactive WebAR experiences — compiled in the browser, published with a QR." },
-      { property: "og:title", content: "Groove AR — Album cover WebAR studio" },
+      { property: "og:title", content: "Flash AR — Album cover WebAR studio" },
       { property: "og:description", content: "Make vinyl sleeves and photo albums come alive with browser AR — no app install." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -94,7 +94,7 @@ function Index() {
       <section className="bg-ink text-paper">
         <header className="mx-auto flex max-w-6xl items-center justify-between px-6 py-6">
           <div className="flex items-center gap-2 text-lg font-bold tracking-tight">
-            <Disc3 className="h-6 w-6" /> Groove AR
+            <Disc3 className="h-6 w-6" /> Flash AR
           </div>
           <div className="flex items-center gap-2">
             {user ? (
@@ -133,7 +133,7 @@ function Index() {
             Make every sleeve play when the camera finds it.
           </h1>
           <p className="mt-6 max-w-xl text-base text-paper/70 md:text-lg">
-            Groove AR turns album covers, vinyl sleeves and photo albums into interactive AR experiences. Compile in
+            Flash AR turns album covers, vinyl sleeves and photo albums into interactive AR experiences. Compile in
             your browser, layer video, audio and 3D on top, then publish a scannable QR.
           </p>
           <div className="mt-9 flex flex-wrap items-center gap-3">
@@ -348,7 +348,7 @@ function Index() {
         <div className="mx-auto grid max-w-6xl gap-10 px-6 py-14 sm:grid-cols-2 lg:grid-cols-4">
           <div>
             <div className="flex items-center gap-2 text-lg font-bold tracking-tight">
-              <Disc3 className="h-6 w-6" /> Groove AR
+              <Disc3 className="h-6 w-6" /> Flash AR
             </div>
             <p className="mt-3 text-xs leading-relaxed text-paper/60">
               Image-tracked WebAR for album covers, vinyl sleeves and photo albums. No app install — just a scan.
@@ -389,7 +389,7 @@ function Index() {
         </div>
         <div className="border-t border-paper/15">
           <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-2 px-6 py-5 text-xs text-paper/50">
-            <p>© {new Date().getFullYear()} Groove AR. All rights reserved.</p>
+            <p>© {new Date().getFullYear()} Flash AR. All rights reserved.</p>
             <p>Made for music that plays beyond the sleeve.</p>
           </div>
         </div>
